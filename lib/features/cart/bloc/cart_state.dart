@@ -1,6 +1,12 @@
 part of 'cart_bloc.dart';
 
 @immutable
-sealed class CartState {}
+abstract class CartState {}
+abstract class CartActionState extends CartState {}
+class CartInitial extends CartState {}
+class CartSuccessState extends CartState{
+  final List<ProductDataModel>cartItems;
 
-final class CartInitial extends CartState {}
+  CartSuccessState({required this.cartItems});
+}
+ 
