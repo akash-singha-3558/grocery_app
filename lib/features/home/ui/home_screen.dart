@@ -12,6 +12,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    homeBloc.add(HomeInitialEvent());
+    super.initState();
+  }
   final HomeBloc homeBloc = HomeBloc();
   @override
   Widget build(BuildContext context) {
@@ -27,27 +32,43 @@ class _HomeState extends State<Home> {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const Wishlist()));
         }
+       
       },
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text("Grocery App"),
+        switch (state.runtimeType) {
+          case HomeLoadingState:
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator(),),
+            );
+           
+          case HomeLoadedSucessState:
+            return Scaffold(
+            appBar: AppBar(
+            title: const Text("Grocery App",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),),
             backgroundColor: Colors.teal,
             actions: [
               IconButton(
                   onPressed: () {
                     homeBloc.add(HomeWishlistButtonNavigateClickedEvent());
                   },
-                  icon: const Icon(Icons.favorite_border)),
+                  icon: const Icon(Icons.favorite_border,color: Colors.white,)),
               IconButton(
                   onPressed: () {
                     homeBloc.add(HomeCartButtonNavigateClickedEvent());
                   },
-                  icon: const Icon(Icons.shopping_bag_outlined)),
+                  icon: const Icon(Icons.shopping_bag_outlined,color: Colors.white)),
             ],
           ),
         );
+          case HomeErrorState:
+          return const Scaffold(body: Center(child: Text("Error"),),);
+          default:
+          return const SizedBox();
+        }
       },
     );
   }
 }
+
+
+  
