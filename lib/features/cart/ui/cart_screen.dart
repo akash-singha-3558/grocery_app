@@ -36,8 +36,8 @@ class _CartState extends State<Cart> {
               final successState=state as CartSuccessState;
              return ListView.builder(
               itemCount: successState.cartItems.length,
-              itemBuilder: (context,Index){
-               return CartTileWidget(productDataModel: successState.cartItems[Index], cartBloc: cartBloc);
+              itemBuilder: (context,index){
+               return  CartTileWidget(productDataModel: successState.cartItems[index], cartBloc: cartBloc);
              });
             default:
           }

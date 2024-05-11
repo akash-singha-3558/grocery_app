@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:grocey_app/features/cart/bloc/cart_bloc.dart';
+import 'package:grocey_app/data/wishlist_items.dart';
 import 'package:grocey_app/features/home/models/home_product_data_model.dart';
+import 'package:grocey_app/features/wishlist/bloc/wishlist_bloc.dart';
 
-class CartTileWidget extends StatelessWidget {
+class WishlistTileWidget extends StatelessWidget {
   final ProductDataModel productDataModel;
-  final CartBloc cartBloc;
+  final WishlistBloc wishlistBloc;
 
-  const CartTileWidget({super.key, required this.productDataModel, required this.cartBloc});
+  const WishlistTileWidget({super.key, required this.productDataModel, required this.wishlistBloc});
 
 
   @override
@@ -46,18 +47,16 @@ class CartTileWidget extends StatelessWidget {
               ),),
               Row(
                 children: [
-                  //  IconButton(
-                  // onPressed: () {
-                  //   //  homeBloc.add(HomeProductWishlistButtonClickedEvent(
-                  //   //   clickedProduct: productDataModel
-                  //   //  ));
-                  // },
-                  // icon: const Icon(Icons.favorite_border,color: Colors.black,)),
-              IconButton(
+                   IconButton(
                   onPressed: () {
-                  cartBloc.add(CartRemoveEvent(productDataModel: productDataModel));
+                   wishlistBloc.add(WishlistRemoveEvent(productDataModel: productDataModel));
                   },
-                  icon: const Icon(Icons.shopping_bag,color: Colors.black)),
+                  icon: const Icon(Icons.favorite,color: Colors.black,)),
+              // IconButton(
+              //     onPressed: () {
+              //     cartBloc.add(CartRemoveEvent(productDataModel: productDataModel));
+              //     },
+              //     icon: const Icon(Icons.shopping_bag,color: Colors.black)),
                 ],
               ),
             ],
